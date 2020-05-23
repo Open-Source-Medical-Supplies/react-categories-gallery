@@ -6,8 +6,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "airtable": "^0.8.1",
+    "classnames": "^2.2.6",
+    "node-sass": "^4.14.1",
+    "primeflex": "^1.1.0",
+    "primeicons": "^3.0.0-rc.1",
+    "primereact": "^4.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
