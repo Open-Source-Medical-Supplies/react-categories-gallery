@@ -1,8 +1,6 @@
-import { Button } from 'primereact/button';
 import React from 'react';
-import { MapCardToJSON } from '../../service/mapCardToJSON';
-import { OpenExternalSafely, openExternal } from '../../shared/utilities';
 import ReactMarkdown from 'react-markdown';
+import { MapCardToJSON } from '../../service/mapCardToJSON';
 
 const FullCard = ({selectedCard}) => {
   const cardData = MapCardToJSON(selectedCard);
