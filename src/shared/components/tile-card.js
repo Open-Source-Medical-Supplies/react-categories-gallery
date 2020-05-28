@@ -23,7 +23,7 @@ const TileCard = ({displayName, imageURL, action, className = '', buttonIcon='ey
 
   return (
     <Card header={headerImage} footer={footer} className={className}>
-      <h4 className='clamp-1'> {displayName} </h4>
+      <h4 className='clamp-1' style={{textAlign: 'center'}}> {displayName} </h4>
     </Card>
   );
 }
