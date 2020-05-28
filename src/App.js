@@ -7,9 +7,13 @@ import CardContainer from './components/card-container/card-container';
 import DetailWindow from './components/detail-window/detail-window';
 import FullCard from "./components/detail-window/full-card";
 import './shared/css/_prime.scss';
-import { getCategories } from "./service/airtable";
 import { Abstract } from "./components/abstract";
 import { SearchBar } from "./components/search-bar/search-bar";
+import { setCategories, setLinks } from "./service/app.service";
+import { MapCardToJSON } from "./service/mapCardToJSON";
+import { empty } from "./shared/utilities";
+
+/* eslint-disable react-hooks/exhaustive-deps */
 
 /**
  * @type {{
@@ -24,6 +28,8 @@ const StateDefault = {
   records: [],
   selectedCard: {},
   visible: false,
+  projectLinks: {},
+  selectedLinks: []
 };
 
 const App = () => {
@@ -34,21 +40,25 @@ const App = () => {
 
   useEffect(() => {
     (async function fetch() {
-      const rows = await getCategories();
-      rows.eachPage(
-        (records, fetchNextPage) => {
-          const simpleRecords = records
-            .map(({fields}) => fields) // strip Airtable operations
-            .filter(field => field.staging !== true);
-          setState({records: simpleRecords, _records: simpleRecords});
-        },
-        (err) => {
-          if (err) { console.error(err); return; }
-        }
-      );
+      Promise.all([
+        setCategories(), 
+        setLinks()
+      ]).then(
+        res => setState({
+          ...res[0],
+          ...res[1]
+        }),
+        e => console.warn(e)
+      )
     })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  
+  }, []);
+
+  useEffect(() => {
+    if (empty(state.selectedCard)) { return; }
+    const {categoryKey} = MapCardToJSON(state.selectedCard);
+    setState({selectedLinks: state.projectLinks[categoryKey]});
+  }, [state.selectedCard]);
+
   return (
     <div style={{display: 'flex'}}>
       <div className='flex-column' style={{flex: state.visible ? 1 : 6}}>
@@ -62,7 +72,7 @@ const App = () => {
       </div>
       <div className='sticky-top-0' style={{ flex: state.visible ? 5 : 0, top: '0', height: '100vh' }}>
         <DetailWindow visible={state.visible} onHide={hide} className='p-sidebar-lg'>
-          <FullCard selectedCard={state.selectedCard} />
+          <FullCard selectedCard={state.selectedCard} links={state.selectedLinks} />
         </DetailWindow>
       </div>
     </div>

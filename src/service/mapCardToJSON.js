@@ -1,7 +1,20 @@
+import { empty } from "../shared/utilities";
+
+// used with full-card
+export const CardSections = new Map([
+  ['disclaimer', 'Disclaimer'],
+  ['problem', 'The Problem'],
+  ['currentGlobalResources', 'Current Global Resources'],
+  ['engReqs', 'Engineering Requirements'],
+  ['fabReqs', 'Assembly/Fabrication Requirements'],
+  ['resources', 'Resources'],
+  ['designDisclaimers', 'Disclaimer Designs']
+]);
+
 export function MapCardToJSON (card) {
-  if (!card) return;
-  const categoryKey             = card['Medical Supply Category'] || null;
-  const categoryName            = card['CategoryName'] ? card['CategoryName'][0] : null;
+  if (!card || empty(card)) return {};
+  const categoryKey             = card['Medical Supply Category'][0] || null;
+  const categoryName            = card['CategoryName'][0] || null;
   const disclaimer              = card['Disclaimer'] || null;
   const problem                 = card['The Problem'] || null;
   const currentGlobalResources  = card['Current Global Resources'] || null;
@@ -10,17 +23,6 @@ export function MapCardToJSON (card) {
   const resources               = card['Resources'] || null;
   const imageURL                = card['Image'] ? card['Image'][0].thumbnails.large.url : null;
   const designDisclaimers       = card['Disclaimer Designs'] || null;
-
-  // used with full-card
-  const sectionKeys = {
-    disclaimer: 'Disclaimer',
-    problem: 'The Problem',
-    currentGlobalResources: 'Current Global Resources',
-    engReqs: 'Engineering Requirements',
-    fabReqs: 'Assembly/Fabrication Requirements',
-    resources: 'Resources',
-    designDisclaimers: 'Disclaimer Designs'
-  }
 
   return {
     categoryKey,
@@ -32,7 +34,6 @@ export function MapCardToJSON (card) {
     fabReqs,
     resources,
     imageURL,
-    designDisclaimers,
-    sectionKeys
+    designDisclaimers
   };
 }
