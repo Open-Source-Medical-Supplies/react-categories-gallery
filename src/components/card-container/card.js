@@ -5,7 +5,7 @@ import TileCard from '../../shared/components/tile-card';
 
 const ProjectCard = ({data, setCard, selectedCard}) =>{
   const { categoryName, imageURL } = MapCardToJSON(data);
-  const selectedName = selectedCard['CategoryName'];
+  const selectedName = selectedCard['CategoryName'] ? selectedCard['CategoryName'][0] : '';
 
   const selectCard = () => setCard({selectedCard: data, visible: true});
   
