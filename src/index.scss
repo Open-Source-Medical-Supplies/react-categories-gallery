@@ -4,6 +4,13 @@
 @import './shared/css/mixins';
 @import './shared/css/variables';
 
+@import './shared/css/fonts/primeicons/fonts/export';
+
+#categories-gallery {
+  max-width: 98%;
+  margin: 0 auto;
+}
+
 .centered-image {
   // be sure to add a height attr to the element;
   object-fit: scale-down;

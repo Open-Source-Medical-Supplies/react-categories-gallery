@@ -5,7 +5,7 @@ import { MapCardToJSON } from '../../service/mapCardToJSON';
 export const SearchBar = ({setState, _records}) => {
   const [searchState, setSearchState] = useState('');
   const onInputChange = e => setSearchState(e.target.value);
-  console.log(searchState)
+  
   useEffect(() => {
     const filteredRecords = !searchState.length ? _records : _records.filter(record => {
       const { categoryName } = MapCardToJSON(record);
