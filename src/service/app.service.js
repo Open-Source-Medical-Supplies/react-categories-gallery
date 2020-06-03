@@ -41,6 +41,5 @@ export const setLinks = async () => {
       return acc;
     }, {});
   });
-  console.log(temp)
   return {projectLinks: temp};
 };
