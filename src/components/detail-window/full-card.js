@@ -28,7 +28,7 @@ const FullCard = ({selectedCard, links}) => {
         {
           Array.from(CardSections, ([key, label]) => cardData[key] ? markdownSection(label, cardData[key]) : null)
         }
-        <ImageCarousel links={links}/>
+        {links ? <ImageCarousel links={links}/> : null}
       </div>
     </div>
   );
