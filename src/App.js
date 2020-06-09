@@ -38,16 +38,34 @@ const App = () => {
 
   const hide = () => setState({selectedCard: {}, visible: false});
 
+  const getParam = () => window.location && window.location.search ?
+    decodeURI(window.location.search.split('category=')[1]) :
+    undefined;
+  
   useEffect(() => {
     (async function fetch() {
       Promise.all([
         setCategories(), 
         setLinks()
       ]).then(
-        res => setState({
-          ...res[0],
-          ...res[1]
-        }),
+        res => {
+          const param = getParam();
+          if (param) {
+            const selectedCard = res[0]._records.find(r => r['CategoryName'][0] === param) || {};
+
+            setState({
+              ...res[0],
+              ...res[1],
+              selectedCard,
+              visible: true
+            });
+          } else {
+            setState({
+              ...res[0],
+              ...res[1]
+            });
+          }
+        },
         e => console.warn(e)
       )
     })();
@@ -62,7 +80,7 @@ const App = () => {
   return (
     <div style={{display: 'flex'}}>
       <div className='flex-column' style={{flex: state.visible ? 1 : 6}}>
-        <Abstract/>
+        {/* <Abstract/> */}
         <div className='divider-1'></div>
         <SearchBar _records={state._records} setState={setState} />
         <div className='divider-1'></div>
