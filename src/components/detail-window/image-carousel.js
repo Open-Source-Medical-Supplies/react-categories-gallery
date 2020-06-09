@@ -39,6 +39,7 @@ const ImageCarousel = ({ links }) => {
 
   return (
     <Carousel
+      style={{maxWidth: '100%'}}
       value={links}
       itemTemplate={cardTemplate}
       numVisible={3}

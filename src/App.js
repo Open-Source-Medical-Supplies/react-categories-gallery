@@ -11,7 +11,7 @@ import { Abstract } from "./components/abstract";
 import { SearchBar } from "./components/search-bar/search-bar";
 import { setCategories, setLinks } from "./service/app.service";
 import { MapCardToJSON } from "./service/mapCardToJSON";
-import { empty } from "./shared/utilities";
+import { empty, notEmpty } from "./shared/utilities";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -57,7 +57,7 @@ const App = () => {
               ...res[0],
               ...res[1],
               selectedCard,
-              visible: true
+              visible: notEmpty(selectedCard)
             });
           } else {
             setState({
@@ -79,16 +79,14 @@ const App = () => {
 
   return (
     <div style={{display: 'flex'}}>
-      <div className='flex-column' style={{flex: state.visible ? 1 : 6}}>
+      <div id='app__left-column' className='flex-column' style={{flex: state.visible ? 1 : 6}}>
         {/* <Abstract/> */}
         <div className='divider-1'></div>
-        <SearchBar _records={state._records} setState={setState} />
+        <SearchBar id='app__search-bar' _records={state._records} setState={setState} />
         <div className='divider-1'></div>
-        <div style={{display: 'flex'}}>
-          <CardContainer records={state.records} cardChange={setState} selectedCard={state.selectedCard} />
-        </div>
+        <CardContainer id='app__card-container' records={state.records} cardChange={setState} selectedCard={state.selectedCard} />
       </div>
-      <div className='sticky-top-0' style={{ flex: state.visible ? 5 : 0, top: '0', height: '100vh' }}>
+      <div id='app__detail-window' style={{ flex: state.visible ? 5 : 0 }}>
         <DetailWindow visible={state.visible} onHide={hide} className='p-sidebar-lg'>
           <FullCard selectedCard={state.selectedCard} links={state.selectedLinks} />
         </DetailWindow>

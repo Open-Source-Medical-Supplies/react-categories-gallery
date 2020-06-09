@@ -11,6 +11,16 @@
   margin: 0 auto;
 }
 
+#app__ {
+  &left-column {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  &detail-window {
+    height: 100vh;
+  }
+}
+
 .centered-image {
   // be sure to add a height attr to the element;
   object-fit: scale-down;
