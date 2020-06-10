@@ -77,16 +77,19 @@ const App = () => {
     setState({selectedLinks: state.projectLinks[categoryKey]});
   }, [state.selectedCard]);
 
+  const leftFlex = `${state.visible ? 1 : 6} 0 ${state.visible ? '20%' : '100%'}`;
+  const rightFlex = `${state.visible ? 5 : 0} 0 80%`;
+
   return (
     <div style={{display: 'flex'}}>
-      <div id='app__left-column' className='flex-column' style={{flex: state.visible ? 1 : 6}}>
+      <div id='app__left-column' className='flex-column' style={{ flex: leftFlex }}>
         {/* <Abstract/> */}
         <div className='divider-1'></div>
         <SearchBar id='app__search-bar' _records={state._records} setState={setState} />
         <div className='divider-1'></div>
         <CardContainer id='app__card-container' records={state.records} cardChange={setState} selectedCard={state.selectedCard} />
       </div>
-      <div id='app__detail-window' style={{ flex: state.visible ? 5 : 0 }}>
+      <div id='app__detail-window' style={{ flex: rightFlex, maxWidth: '79vw' }}>
         <DetailWindow visible={state.visible} onHide={hide} className='p-sidebar-lg'>
           <FullCard selectedCard={state.selectedCard} links={state.selectedLinks} />
         </DetailWindow>
