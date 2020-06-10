@@ -25,12 +25,12 @@ const ImageCarousel = ({ links }) => {
   
   const cardTemplate = (data) => {
     const {
-      displayName, imageURL, externalLink
+      name, imageURL, externalLink
     } = MapProjectToJSON(data);
 
     return (
       <TileCard
-        displayName={displayName}
+        displayName={name}
         imageURL={imageURL}
         buttonIcon='external-link'
         action={openExternal(externalLink)}/>
