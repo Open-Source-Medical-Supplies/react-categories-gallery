@@ -12,10 +12,8 @@ const ProjectCard = ({data, setCard, selectedCard}) =>{
   const highlight = classNames({
     "card-selected": !!selectedName && selectedName === categoryName
   });
-  const sizing = classNames({
-    'p-col-3': !selectedName,
-    'p-col-12': !!selectedName
-  })
+  const sizing = classNames(!!selectedName ? 'p-col-12' : 'p-col-2');
+  
   return (
     <div key={categoryName} className={sizing}>
       <TileCard displayName={categoryName} imageURL={imageURL} action={selectCard} className={highlight}/>
