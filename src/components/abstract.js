@@ -1,13 +1,15 @@
 import React from 'react';
 import { Button } from 'primereact/button';
+import { openExternal } from '../shared/utilities';
 
 export function Abstract() {
+  const gDocLink = "https://docs.google.com/document/d/1-71FJTmI1Q1kjSDLP0EegMERjg_0kk_7UfaRE4r66Mg/edit";
   return (
     <div className='flex-column'>
-      <p style={{ marginBottom: '1rem' }}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <Button style={{alignSelf: 'center'}} label='Open Source Medical Supply Guide'></Button>
+      <Button
+        onClick={openExternal(gDocLink)}
+        style={{alignSelf: 'center'}}
+        label='Open Source Medical Supply Guide'></Button>
     </div>
   )
 }

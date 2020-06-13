@@ -1,10 +1,9 @@
-import { Button } from 'primereact/button';
 import React from 'react';
-import { MapCardToJSON } from '../../service/mapCardToJSON';
-import { OpenExternalSafely, openExternal } from '../../shared/utilities';
 import ReactMarkdown from 'react-markdown';
+import { MapCardToJSON, CardSections } from '../../service/mapCardToJSON';
+import ImageCarousel from './image-carousel';
 
-const FullCard = ({selectedCard}) => {
+const FullCard = ({selectedCard, links}) => {
   const cardData = MapCardToJSON(selectedCard);
   const {categoryName, imageURL} = cardData;
   
@@ -21,44 +20,15 @@ const FullCard = ({selectedCard}) => {
     </div>
   );
 
-  // const externalLinks = externalLink?.split(';') || [];
-  // const source = (
-  //   <section alt='Sources' >
-  //     <h3>Source</h3>
-  //     {
-  //       externalLinks.map(link => ( 
-  //         // eslint-disable-next-line react/jsx-no-target-blank
-  //         <a key={link.slice(0,-10)} href={link} target='_blank' rel={OpenExternalSafely}>
-  //           <span className='clamp-1'>{link}</span>
-  //         </a>
-  //       ))
-  //     }
-  //   </section>
-  // );
-
-  // const footer = (
-  //   <span alt='footer' className="full-card__footer">
-  //     <Button
-  //       onClick={openExternal(externalLinks[0])}
-  //       tooltip='Link will open in a new tab'
-  //       label='Make it!'
-  //       icon='pi pi-external-link'
-  //       iconPos='right'
-  //       className="p-button-raised p-button-rounded" />
-  //   </span>
-  // );
-
   return (
     <div className="full-card">
       <div className="full-card__content">
         {headerImage}
         <h1>{categoryName}</h1>
         {
-          Object.entries(cardData.sectionKeys).map(entry => {
-            const [key, label] = entry;
-            return markdownSection(label, cardData[key])
-          })
+          Array.from(CardSections, ([key, label]) => cardData[key] ? markdownSection(label, cardData[key]) : null)
         }
+        {links ? <ImageCarousel links={links}/> : null}
       </div>
     </div>
   );
