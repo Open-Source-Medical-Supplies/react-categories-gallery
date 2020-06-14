@@ -3,7 +3,7 @@ import React from 'react';
 import { MapCardToJSON } from '../../service/mapCardToJSON';
 import TileCard from '../../shared/components/tile-card';
 
-const ProjectCard = ({data, setCard, selectedCard}) =>{
+const ProjectCard = ({data, setCard, selectedCard, isMobile}) =>{
   const { categoryName, imageURL } = MapCardToJSON(data);
   const selectedName = selectedCard['CategoryName'] ? selectedCard['CategoryName'][0] : '';
 
@@ -12,7 +12,15 @@ const ProjectCard = ({data, setCard, selectedCard}) =>{
   const highlight = classNames({
     "card-selected": !!selectedName && selectedName === categoryName
   });
-  const sizing = classNames(!!selectedName ? 'p-col-12' : 'p-col-2');
+
+  let sizing;
+  if (!!selectedName) {
+    sizing = 'p-col-12';
+  } else if (isMobile) { // show all, mobile
+    sizing = 'p-col-4';
+  } else { // show all, not mobile
+    sizing = 'p-col-2';
+  }
   
   return (
     <div key={categoryName} className={sizing}>

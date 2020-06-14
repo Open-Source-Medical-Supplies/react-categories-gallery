@@ -1,7 +1,7 @@
 import React from 'react';
 import ProjectCard from './card';
 
-const CardContainer = ({records, cardChange, selectedCard}) => {
+const CardContainer = ({records, cardChange, selectedCard, isMobile}) => {
   return (
     <div className='p-grid'>
       {
@@ -10,6 +10,7 @@ const CardContainer = ({records, cardChange, selectedCard}) => {
               <ProjectCard
                 key={fields['Medical Supply Category']}
                 data={fields}
+                isMobile={isMobile}
                 setCard={cardChange}
                 selectedCard={selectedCard}/>
             ); 

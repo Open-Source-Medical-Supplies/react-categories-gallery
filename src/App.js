@@ -2,16 +2,16 @@ import "primeflex/primeflex.css";
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/nova-light/theme.css';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CardContainer from './components/card-container/card-container';
 import DetailWindow from './components/detail-window/detail-window';
 import FullCard from "./components/detail-window/full-card";
-import './shared/css/_prime.scss';
-import { Abstract } from "./components/abstract";
 import { SearchBar } from "./components/search-bar/search-bar";
-import { setCategories, setLinks } from "./service/app.service";
+import { fetchData } from "./service/app.service";
 import { MapCardToJSON } from "./service/mapCardToJSON";
-import { empty, notEmpty } from "./shared/utilities";
+import './shared/css/_prime.scss';
+import detectMobile from "./shared/detect-mobile.utility";
+import { empty } from "./shared/utilities";
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -35,40 +35,13 @@ const StateDefault = {
 const App = () => {
   let [state, baseSetState] = useState(StateDefault);
   const setState = (props) => baseSetState({...state, ...props});
-
   const hide = () => setState({selectedCard: {}, visible: false});
-
-  const getParam = () => window.location && window.location.search ?
-    decodeURI(window.location.search.split('category=')[1]) :
-    undefined;
+  
+  const isMobileRef = useRef(false);
   
   useEffect(() => {
-    (async function fetch() {
-      Promise.all([
-        setCategories(), 
-        setLinks()
-      ]).then(
-        res => {
-          const param = getParam();
-          if (param) {
-            const selectedCard = res[0]._records.find(r => r['CategoryName'][0] === param) || {};
-
-            setState({
-              ...res[0],
-              ...res[1],
-              selectedCard,
-              visible: notEmpty(selectedCard)
-            });
-          } else {
-            setState({
-              ...res[0],
-              ...res[1]
-            });
-          }
-        },
-        e => console.warn(e)
-      )
-    })();
+    isMobileRef.current = detectMobile();
+    fetchData(setState);
   }, []);
 
   useEffect(() => {
@@ -78,7 +51,7 @@ const App = () => {
   }, [state.selectedCard]);
 
   const leftFlex = `${state.visible ? 1 : 6} 0 ${state.visible ? '20%' : '100%'}`;
-  const rightFlex = `${state.visible ? 5 : 0} 0 80%`;
+  const rightFlex = `${state.visible ? 5 : 0} 0 ${isMobileRef.current ? '0%' : '80%'}`;
 
   return (
     <div style={{display: 'flex'}}>
@@ -87,7 +60,11 @@ const App = () => {
         <div className='divider-1'></div>
         <SearchBar id='app__search-bar' _records={state._records} setState={setState} />
         <div className='divider-1'></div>
-        <CardContainer id='app__card-container' records={state.records} cardChange={setState} selectedCard={state.selectedCard} />
+        <CardContainer id='app__card-container'
+          isMobile={isMobileRef.current}
+          records={state.records}
+          cardChange={setState}
+          selectedCard={state.selectedCard} />
       </div>
       <div id='app__detail-window' style={{ flex: rightFlex, maxWidth: '79vw' }}>
         <DetailWindow visible={state.visible} onHide={hide} className='p-sidebar-lg'>

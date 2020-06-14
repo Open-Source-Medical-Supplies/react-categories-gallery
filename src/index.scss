@@ -13,11 +13,11 @@
 
 #app__ {
   &left-column {
-    height: 100vh;
+    height: calc(100vh - 150px);
     overflow-y: auto;
   }
   &detail-window {
-    height: 100vh;
+    height: calc(100vh - 150px);
   }
 }
 
