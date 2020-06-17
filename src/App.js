@@ -58,9 +58,9 @@ const App = () => {
       <div id='app__left-column' className='flex-column' style={{ flex: leftFlex }}>
         {/* <Abstract/> */}
         <div className='divider-1'></div>
-        <SearchBar id='app__search-bar' _records={state._records} setState={setState} />
+        <SearchBar _records={state._records} setState={setState} />
         <div className='divider-1'></div>
-        <CardContainer id='app__card-container'
+        <CardContainer
           isMobile={isMobileRef.current}
           records={state.records}
           cardChange={setState}

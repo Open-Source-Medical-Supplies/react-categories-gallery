@@ -3,7 +3,7 @@ import ProjectCard from './card';
 
 const CardContainer = ({records, cardChange, selectedCard, isMobile}) => {
   return (
-    <div className='p-grid'>
+    <div  id='app__card-container' className='p-grid'>
       {
         records.reduce((acc, fields) => {
             acc.push(

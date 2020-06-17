@@ -15,7 +15,7 @@ export const SearchBar = ({setState, _records}) => {
   }, [searchState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className='sticky-top-0' style={{zIndex: 10}}>
+    <div id='app__search-bar' className='sticky-top-0' style={{zIndex: 10}}>
       <span className='p-float-label'>
         <label htmlFor='searchBar'>{searchState.length ? '' : 'Search'}</label>
         <InputText id='searchBar'
