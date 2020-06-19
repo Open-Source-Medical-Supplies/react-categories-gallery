@@ -1,8 +1,6 @@
 import { getCategories, getCatgeoryLinks, AirtableHelpers } from "./airtable";
 import { notEmpty } from "../shared/utilities";
 
-const handleError = (e) => { console.warn(e); return e; }
-
 /**
  * @returns {Promise<{
   records: {};
