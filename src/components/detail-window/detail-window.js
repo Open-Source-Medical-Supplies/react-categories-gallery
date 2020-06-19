@@ -199,11 +199,11 @@ export default class DetailWindow extends Component {
     const closeIcon = this.renderCloseIcon();
 
     return (
-      <div style={{height: '100%'}}
+      <div
         ref={(el) => (this.container = el)}
         id={this.props.id}
         className={className}
-        style={this.props.style}
+        style={{height: '100%', ...this.props.style}}
         role="complementary"
       >
         {closeIcon}
