@@ -3,11 +3,30 @@ import React from 'react';
 import { MapCardToJSON } from '../../service/mapCardToJSON';
 import TileCard from '../../shared/components/tile-card';
 
+/**
+ * 
+ * @param {string} param 
+ * @returns void
+ */
+const updateQueryParam = (param) => {
+  // update url w/o page reload
+  if (!param) return;
+  if (window.history && window.history.pushState) {
+    const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?/category-library?category=' + encodeURI(param);
+    window.history.pushState({ path: newurl }, '', newurl);
+  } else {
+    alert('Please update your browser version');
+  }
+}
+
 const ProjectCard = ({data, setCard, selectedCard, isMobile}) =>{
   const { categoryName, imageURL } = MapCardToJSON(data);
   const selectedName = selectedCard['CategoryName'] ? selectedCard['CategoryName'][0] : '';
 
-  const selectCard = () => setCard({selectedCard: data, visible: true});
+  const selectCard = () => {
+    updateQueryParam(categoryName)
+    setCard({selectedCard: data, visible: true})
+  };
   
   const highlight = classNames({
     "card-selected": !!selectedName && selectedName === categoryName
