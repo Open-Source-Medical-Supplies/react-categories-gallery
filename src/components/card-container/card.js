@@ -24,7 +24,7 @@ const ProjectCard = ({data, setCard, selectedCard, isMobile}) =>{
   
   return (
     <div key={categoryName} className={sizing}>
-      <TileCard displayName={categoryName} imageURL={imageURL} action={selectCard} className={highlight}/>
+      <TileCard displayName={categoryName} imageURL={imageURL} actions={[{fn: selectCard}]} className={highlight}/>
     </div>
   );
 }

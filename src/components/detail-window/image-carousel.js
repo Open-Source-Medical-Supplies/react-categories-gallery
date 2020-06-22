@@ -22,18 +22,32 @@ const ImageCarousel = ({ links }) => {
       numScroll: 1,
     },
   ];
+
   
   const cardTemplate = (data) => {
     const {
-      name, imageURL, externalLink
+      name, imageURL, externalLink, baseID
     } = MapProjectToJSON(data);
+
+    const actions = [
+      {
+        label: 'View Source',
+        icon: 'external-link',
+        fn: openExternal(externalLink)
+      },
+      {
+        label: 'View Details',
+        icon: 'eye',
+        fn: openExternal('/libraries/project-library/?project=' + baseID)
+      }
+    ]
 
     return (
       <TileCard
         displayName={name}
         imageURL={imageURL}
         buttonIcon='external-link'
-        action={openExternal(externalLink)}/>
+        actions={actions}/>
     );
   };
 

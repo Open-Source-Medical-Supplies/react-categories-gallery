@@ -1,5 +1,6 @@
-export function MapProjectToJSON (project) {
+export function MapProjectToJSON (project: any) {
   if (!project) return;
+  const baseID          = project['Base ID'];
   const name            = project['Full Project Name'];
   const description     = project['Description'];
   const attributionOrg  = project['Attribution Organization'];
@@ -10,6 +11,7 @@ export function MapProjectToJSON (project) {
   const imageURL        = project.HeaderImage ? project.HeaderImage[0].thumbnails.large.url : null;
 
   return {
+    baseID,
     name,
     description,
     attributionOrg,
