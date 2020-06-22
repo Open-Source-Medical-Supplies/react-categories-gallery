@@ -12,7 +12,7 @@ const updateQueryParam = (param) => {
   // update url w/o page reload
   if (!param) return;
   if (window.history && window.history.pushState) {
-    const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?/category-library?category=' + encodeURI(param);
+    const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '/libraries/category-library?category=' + encodeURI(param);
     window.history.pushState({ path: newurl }, '', newurl);
   } else {
     alert('Please update your browser version');
